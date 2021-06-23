@@ -3,6 +3,13 @@ import Head from 'next/head'
 import { GetStaticProps } from 'next'
 
 const APIURL = process.env.APIURL || 'http://localhost:3004/todos'
+const APIHEADERS: { 'Content-Type': string; Authorization?: string } = {
+  'Content-Type': 'application/json',
+}
+
+if (APIURL != 'http://localhost:3004/todos' && process.env.HEROKU_API_KEY) {
+  APIHEADERS['Authorization'] = `Bearer ${process.env.HEROKU_API_KEY}`
+}
 
 type Todo = {
   id: number
@@ -30,9 +37,7 @@ const Todo = ({
   const updateTodo = async (): Promise<void> => {
     await fetch(`${APIURL}/${todo.id}`, {
       method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: APIHEADERS,
       body: JSON.stringify(todo),
     })
 
@@ -42,6 +47,7 @@ const Todo = ({
   const deleteTodo = async (): Promise<void> => {
     await fetch(`${APIURL}/${todo.id}`, {
       method: 'DELETE',
+      headers: APIHEADERS,
     })
     fetchTodos()
   }
@@ -108,7 +114,9 @@ const Todos = ({ todos: initialTodos = [] }: ApiProps = {}): JSX.Element => {
   const [showCompleted, setShowCompleted] = useState(false)
 
   const fetchTodos = async (): Promise<void> => {
-    const res: Response = await fetch(APIURL)
+    const res: Response = await fetch(APIURL, {
+      headers: APIHEADERS,
+    })
     const newTodos: Todo[] = await res.json()
     return setTodos(newTodos)
   }
@@ -117,9 +125,7 @@ const Todos = ({ todos: initialTodos = [] }: ApiProps = {}): JSX.Element => {
     e.preventDefault()
     const newTodo = await fetch(APIURL, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: APIHEADERS,
       body: JSON.stringify({
         title: todo,
         completed: false,
@@ -200,7 +206,7 @@ const Todos = ({ todos: initialTodos = [] }: ApiProps = {}): JSX.Element => {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const res: Response = await fetch(APIURL)
+  const res: Response = await fetch(APIURL, { headers: APIHEADERS })
   const todos: JSON = await res.json()
 
   return {
