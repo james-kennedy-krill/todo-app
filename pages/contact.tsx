@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import { GetServerSideProps } from 'next'
 
-const NEXTAPIURL = process.env.NEXTAPIURL || 'http://localhost:3000'
+const NEXTAPIURL = process.env.NEXTAPIURL
 
 type Person = {
   name: string

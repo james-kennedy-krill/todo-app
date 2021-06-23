@@ -3,8 +3,6 @@ import Head from 'next/head'
 import { GetStaticProps } from 'next'
 
 const APIURL = process.env.APIURL
-  ? process.env.APIURL
-  : 'http://localhost:3004/todos'
 const APIHEADERS: { 'Content-Type': string; Authorization?: string } = {
   'Content-Type': 'application/json',
 }
