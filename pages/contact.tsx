@@ -39,7 +39,7 @@ const Contact = ({
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const res: Response = await fetch('http://localhost:3000/api/hello')
+  const res: Response = await fetch('/api/hello')
   const person: JSON = await res.json()
 
   return {

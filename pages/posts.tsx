@@ -1,6 +1,8 @@
 import Head from 'next/head'
 import { GetStaticProps } from 'next'
 
+const APIURL = process.env.APIURL || 'http://localhost:3004/posts'
+
 type Post = {
   id: number
   title: string
@@ -30,7 +32,7 @@ const Posts = ({ posts = [] }: ApiProps = {}): JSX.Element => {
 export const getStaticProps: GetStaticProps = async () => {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
-  const res: Response = await fetch('http://localhost:3004/posts')
+  const res: Response = await fetch(APIURL)
   const posts: JSON = await res.json()
 
   // By returning { props: { posts } }, the Blog component
