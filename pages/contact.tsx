@@ -1,6 +1,8 @@
 import Head from 'next/head'
 import { GetStaticProps } from 'next'
 
+const NEXTAPIURL = process.env.NEXTAPIURL || 'http://localhost:3000'
+
 type Person = {
   name: string
 }
@@ -39,7 +41,7 @@ const Contact = ({
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const res: Response = await fetch(`/api/hello`)
+  const res: Response = await fetch(`${NEXTAPIURL}/api/hello`)
   const person: JSON = await res.json()
 
   return {
