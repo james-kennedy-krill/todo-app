@@ -2,7 +2,7 @@ import { FormEvent, useState, useEffect, useRef } from 'react'
 import Head from 'next/head'
 import { GetStaticProps } from 'next'
 
-const APIURL = process.env.NEXT_PUBLIC_APIURL
+const APIURL: string | undefined = process.env.NEXT_PUBLIC_APIURL
 const APIHEADERS: { 'Content-Type': string; Authorization?: string } = {
   'Content-Type': 'application/json',
 }
