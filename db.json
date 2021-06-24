@@ -29,13 +29,13 @@
   "todos": [
     {
       "title": "Go to the beach",
-      "completed": false,
+      "completed": true,
       "owner": "typicode",
       "id": 1
     },
     {
       "title": "Play soccer",
-      "completed": false,
+      "completed": true,
       "owner": "typicode",
       "id": 2
     },

@@ -2,13 +2,15 @@ import { FormEvent, useState, useEffect, useRef } from 'react'
 import Head from 'next/head'
 import { GetStaticProps } from 'next'
 
-const APIURL = process.env.APIURL
+const APIURL = process.env.NEXT_PUBLIC_APIURL
 const APIHEADERS: { 'Content-Type': string; Authorization?: string } = {
   'Content-Type': 'application/json',
 }
 
-if (APIURL != 'http://localhost:3004/todos' && process.env.HEROKU_API_KEY) {
-  APIHEADERS['Authorization'] = `Bearer ${process.env.HEROKU_API_KEY}`
+if (process.env.NEXT_PUBLIC_HEROKU_API_KEY) {
+  APIHEADERS[
+    'Authorization'
+  ] = `Bearer ${process.env.NEXT_PUBLIC_HEROKU_API_KEY}`
 }
 
 type Todo = {
